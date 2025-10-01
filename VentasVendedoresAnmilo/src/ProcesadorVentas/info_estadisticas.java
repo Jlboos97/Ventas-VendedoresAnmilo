@@ -1,9 +1,5 @@
 package ProcesadorVentas;
 
-//** @Autora: Ana Milena Lobo Ospina @Anmilo
-//CONCEPTOS FUNDAMENTALES DE PROGRAMACIÓN - POLITECNICO GRANCOLOMBIANO
-//TUTOR: DIEGO ROA
-
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
@@ -12,7 +8,7 @@ public class info_estadisticas {
     static Map<String, Integer> ventasPorVendedor = new HashMap<>();
     static Map<String, Integer> productosVendidos = new HashMap<>();
 
-    public static void main(String[] args) {  //** Iniciando procesos
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Opciones:");
@@ -41,7 +37,7 @@ public class info_estadisticas {
         scanner.close();
     }
 
-    public static void registrarVendedor(Scanner scanner) { //* espacio para registrar los vendedores
+    public static void registrarVendedor(Scanner scanner) {
         System.out.print("Tipo de documento del vendedor: ");
         String tipoDoc = scanner.nextLine();
 
@@ -56,9 +52,9 @@ public class info_estadisticas {
         scanner.nextLine(); // limpiar buffer
 
         StringBuilder contenido = new StringBuilder();
-        contenido.append(tipoDoc).append(";").append(numDoc).append(";").append(tipoName).append("");
+        contenido.append(tipoDoc).append(";").append(numDoc).append(";").append(tipoName).append("\n");
 
-        for (int i = 0; i < cantidadProductos; i++) { // ya teniendo los datos registrados del vendedor en el buffer se  
+        for (int i = 0; i < cantidadProductos; i++) {
             System.out.println("Producto #" + (i + 1));
             System.out.print("ID del producto: ");
             String idProducto = scanner.nextLine();
@@ -72,8 +68,8 @@ public class info_estadisticas {
             System.out.print("Precio unitario: ");
             String precio = scanner.nextLine();
 
-            contenido.append(idProducto).append(";").append(infProducto).append(";")
-                     .append(cantidad).append(";").append(precio).append("");
+            contenido.append(idProducto).append(" ;").append(infProducto).append(";")
+                     .append(cantidad).append(";").append(precio).append("\n");
         }
 
         // Guardar en archivo
@@ -95,7 +91,7 @@ public class info_estadisticas {
     public static void procesarArchivo(File archivo) {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
-            String tipoDoc = " ", numDoc = " ", tipoName = " ";
+            String tipoDoc = "", numDoc = "", tipoName = "";
             int contador = 0;
             int totalProductos = 0;
             int totalVentas = 0;
@@ -137,10 +133,8 @@ public class info_estadisticas {
         String vendedorMax = Collections.max(ventasPorVendedor.entrySet(), Map.Entry.comparingByValue()).getKey();
         String vendedorMin = Collections.min(ventasPorVendedor.entrySet(), Map.Entry.comparingByValue()).getKey();
         String productoTop = Collections.max(productosVendidos.entrySet(), Map.Entry.comparingByValue()).getKey();
-        String productoMin = Collections.min(productosVendidos.entrySet(), Map.Entry.comparingByValue()).getKey();
-        
+
         System.out.println("Producto más vendido: " + productoTop);
-        System.out.println("Producto mesnos vendido: " + productoMin);
         System.out.println("Vendedor con más ventas: " + vendedorMax);
         System.out.println("Vendedor con menos ventas: " + vendedorMin);
     }
